@@ -1,5 +1,6 @@
 pragma solidity ^0.5.0;
 
+// DappToken smart contract starter file
 contract DappToken {
     string  public name = "DApp Token";
     string  public symbol = "DAPP";
