@@ -39,7 +39,6 @@ class App extends Component {
       let daiTokenBalance = await daiToken.methods.balanceOf(this.state.account).call()
       // Update state of daiTokenBalance
       this.setState({ daiTokenBalance: daiTokenBalance.toString() })
-      console.log('daiTokenBalance', daiTokenBalance)
     } else {
       window.alert('DaiToken contract not deployed to detected network.')
     }
@@ -58,7 +57,6 @@ class App extends Component {
       let dappTokenBalance = await dappToken.methods.balanceOf(this.state.account).call()
       // Update state of dappTokenBalance
       this.setState({ dappTokenBalance: dappTokenBalance.toString() })
-      console.log('dappTokenBalance', dappTokenBalance)
     } else {
       window.alert('DappToken contract not deployed to detected network.')
     }
@@ -77,7 +75,6 @@ class App extends Component {
       let stakingBalance = await tokenFarm.methods.stakingBalance(this.state.account).call()
       // Update state of dappTokenBalance
       this.setState({ stakingBalance: stakingBalance.toString() })
-      console.log('stakingBalance', stakingBalance)
     } else {
       window.alert('TokenFarm contract not deployed to detected network.')
     }
