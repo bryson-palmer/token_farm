@@ -19,12 +19,13 @@ class App extends Component {
   async loadBlockchainData() {
     // Fetch blockchain data
     const web3 = window.web3
+
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
 
     const networkId = await web3.eth.net.getId()
 
-    // Load DaiToken 
+    // Load DaiToken
     // Find networks key and pass in Id to get the address
     const daiTokenData = DaiToken.networks[networkId]
     if(daiTokenData) {
@@ -38,29 +39,31 @@ class App extends Component {
       let daiTokenBalance = await daiToken.methods.balanceOf(this.state.account).call()
       // Update state of daiTokenBalance
       this.setState({ daiTokenBalance: daiTokenBalance.toString() })
+      console.log('daiTokenBalance', daiTokenBalance)
     } else {
       window.alert('DaiToken contract not deployed to detected network.')
     }
 
-    // Load DappToken 
-    // Find networks key and pass in Id to get the address
+    // Load DappToken
+     // Find networks key and pass in Id to get the address
     const dappTokenData = DappToken.networks[networkId]
     if(dappTokenData) {
-      // This creates a javascript version of the smart contract using web3
+       // This creates a javascript version of the smart contract using web3
       // Create new variable that points to the smart contract by passing in the abi and address
       const dappToken = new web3.eth.Contract(DappToken.abi, dappTokenData.address)
-      // Update state of daiToken
+       // Update state of daiToken
       this.setState({ dappToken })
       // Fetch the balance of the dappToken account in state
       // Have to use .call() to read the information
       let dappTokenBalance = await dappToken.methods.balanceOf(this.state.account).call()
       // Update state of dappTokenBalance
       this.setState({ dappTokenBalance: dappTokenBalance.toString() })
+      console.log('dappTokenBalance', dappTokenBalance)
     } else {
       window.alert('DappToken contract not deployed to detected network.')
     }
 
-    // Load tokenFarm 
+    // Load tokenFarm
     // Find networks key and pass in Id to get the address
     const tokenFarmData = TokenFarm.networks[networkId]
     if(tokenFarmData) {
@@ -74,6 +77,7 @@ class App extends Component {
       let stakingBalance = await tokenFarm.methods.stakingBalance(this.state.account).call()
       // Update state of dappTokenBalance
       this.setState({ stakingBalance: stakingBalance.toString() })
+      console.log('stakingBalance', stakingBalance)
     } else {
       window.alert('TokenFarm contract not deployed to detected network.')
     }
@@ -95,7 +99,7 @@ class App extends Component {
     }
     // If not, install  in order to use this app
     else {
-      window.alert('Non-Ethereum browser detected. You should consider trying !')
+      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
     }
   }
 
@@ -108,6 +112,13 @@ class App extends Component {
       this.state.tokenFarm.methods.stakeTokens(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
         this.setState({ loading: false })
       })
+    })
+  }
+
+  unstakeTokens = () => {
+    this.setState({ loading: true })
+    this.state.tokenFarm.methods.unstakeTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
+      this.setState({ loading: false })
     })
   }
 
@@ -137,13 +148,15 @@ class App extends Component {
     if(this.state.loading) {
       content = <p id="loader" className="text-center">Loading...</p>
     } else {
-      content = <Main 
+      content = <Main
         daiTokenBalance={this.state.daiTokenBalance}
         dappTokenBalance={this.state.dappTokenBalance}
         stakingBalance={this.state.stakingBalance}
         stakeTokens={this.stakeTokens}
+        unstakeTokens={this.unstakeTokens}
       />
     }
+
     return (
       <div>
         <Navbar account={this.state.account} />

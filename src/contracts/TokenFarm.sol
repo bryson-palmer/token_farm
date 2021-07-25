@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0; 
+pragma solidity ^0.5.0;
 
 // Import smart contracts to be used in TokenFarm contract
 import "./DappToken.sol";
@@ -6,7 +6,7 @@ import "./DaiToken.sol";
 
 // Smart contract for TokenFarm
 contract TokenFarm {
-    
+
     // Setting
     string public name = "Dapp Token Farm";
     // State variable to keep track of the owner
@@ -26,7 +26,7 @@ contract TokenFarm {
         // Assigning state variable (dappToken, daiToken) the local variable's address (_dappToken, _daiToken)
         dappToken = _dappToken;
         daiToken = _daiToken;
-        // Person who deployed the contract. Assign owner upon deployment
+         // Person who deployed the contract. Assign owner upon deployment
         owner = msg.sender;
     }
 
@@ -63,25 +63,25 @@ contract TokenFarm {
         require(msg.sender == owner, "caller must be the owner");
 
         // For every investor in the stakers array who has staked with dappFarm issue dappTokens
-        for(uint i = 0; i < stakers.length; i++) {
-            
+        for (uint i=0; i<stakers.length; i++) {
+
             // Feth the investors address
             address recipient = stakers[i];
-            
+
             // Fetch their balance
             uint balance = stakingBalance[recipient];
-            
+
             // Only if investor/staker has a balance greater than 0
             if(balance > 0) {
+
                 // Send them the exact same amount of dappTokens
                 dappToken.transfer(recipient, balance);
             }
         }
     }
-
     // Unstaking Tokens (Withdrawing)
     function unstakeTokens() public {
-        
+
         // Fetch staking balance from stakingBalance mapping
         uint balance = stakingBalance[msg.sender];
 

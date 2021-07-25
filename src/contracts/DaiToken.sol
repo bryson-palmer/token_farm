@@ -1,6 +1,5 @@
 pragma solidity ^0.5.0;
 
-// Mock DaiToken smart contract starter file
 contract DaiToken {
     string  public name = "Mock DAI Token";
     string  public symbol = "mDAI";
