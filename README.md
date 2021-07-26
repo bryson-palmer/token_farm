@@ -67,7 +67,7 @@ Since I wanted to commit this project to my GitHub, I did this a little differen
 ### Coding
 Since I've never used the solidity language in VSCode before, I needed an extension to handle that. I used the solidity [extension](https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity) in VSCode by Juan Blanco. </br>
 I also needed to make sure I used a specific version of the solidity compiler for this project. In a solidity file `.sol` I had to right click and choose </br>
-`Solidity: Change workspace compiler version (Remote)` and choose version `5.0.0`.
+`Solidity: Change workspace compiler version (Remote)` and choose version `0.5.0`.
 Now I was ready to code. </br>
 I pretty much followed the tutorial and code exactly so I could see how he set up his smart contract and tech stack. I did take really good notes so I could come back and study how he engineered his app to work.
 * Wrote the smart contract for how the app works in `TokenFarm.sol`. 
